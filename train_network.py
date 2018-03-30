@@ -89,7 +89,7 @@ with open('Labels.csv', 'r') as f:
 		labels[start:end] = class_no
 		#print(start,end)
 
-names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple']
+names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair']
 
 '''names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
  'ashtray', 'axe', 'backpack', 'banana', 'barn', 'baseball bat', 'basket', 'bathtub',

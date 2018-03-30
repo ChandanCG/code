@@ -17,8 +17,8 @@ ap.add_argument("-i", "--image", required=True,
 	help="path to input image")
 args = vars(ap.parse_args())
 
-#names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple']
-names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
+names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair']
+'''names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
  'ashtray', 'axe', 'backpack', 'banana', 'barn', 'baseball bat', 'basket', 'bathtub',
  'bear (animal)', 'bed', 'bee', 'beer-mug', 'bell', 'bench', 'bicycle', 'binoculars', 
  'blimp', 'book', 'bookshelf', 'boomerang', 'bottle opener', 'bowl', 'brain', 'bread',
@@ -48,7 +48,7 @@ names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
  'tennis-racket', 'tent', 'tiger', 'tire', 'toilet', 'tomato', 'tooth', 'toothbrush', 'tractor', 
  'traffic light', 'train', 'tree', 'trombone', 'trousers', 'truck', 'trumpet', 'tv', 'umbrella', 
  'van', 'vase', 'violin', 'walkie talkie', 'wheel', 'wheelbarrow', 'windmill', 'wine-bottle', 
- 'wineglass', 'wrist-watch', 'zebra']
+ 'wineglass', 'wrist-watch', 'zebra']'''
 # load the image
 test_image = cv2.imread(args["image"])
 orig = test_image.copy()

@@ -33,7 +33,7 @@ COLS = 128
 CHANNELS = 1
 EPOCHS = 16
 INIT_LR = 1e-3
-BS = 32
+BS = 64
 sketch_data_list = []
 
 # initialize the data and labels

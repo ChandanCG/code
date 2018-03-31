@@ -131,7 +131,7 @@ x,y = shuffle(sketch_data,Y, random_state=2)
 # Split the dataset
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2)
 
-
+print(Y_test)
 
 # initialize the model
 print("[INFO] compiling model...")

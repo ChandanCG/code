@@ -34,7 +34,7 @@ class LeNet:
 		model.add(Flatten())
 		model.add(Dense(500))
 		model.add(Activation("relu"))
-                model.add(Dropout(0.5))
+                model.add(Dropout(0.25))
 		# softmax classifier
 		model.add(Dense(classes))
 		model.add(Activation("softmax"))

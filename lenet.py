@@ -29,11 +29,11 @@ class LeNet:
 		model.add(Conv2D(64, (3, 3), padding="same"))
 		model.add(Activation("relu"))
 		model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-                model.add(Dropout(0.25))
+                #model.add(Dropout(0.25))
 			
 		# first (and only) set of FC => RELU layers
 		model.add(Flatten())
-		model.add(Dense(1000))
+		model.add(Dense(4096))
 		model.add(Activation("relu"))
                 model.add(Dropout(0.5))
 		# softmax classifier

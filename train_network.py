@@ -11,6 +11,7 @@ from keras.utils import np_utils
 from keras.callbacks import EarlyStopping
 from keras.losses import categorical_crossentropy
 from vggnet import VGG
+from lenet import LeNet
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
@@ -33,8 +34,8 @@ ROWS = 128
 COLS = 128
 CHANNELS = 1
 EPOCHS = 25
-INIT_LR = 0.0004
-BS = 32
+INIT_LR = 0.003
+BS = 128
 sketch_data_list = []
 
 # initialize the data and labels
@@ -140,7 +141,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2)
 
 # initialize the model
 print("[INFO] compiling model...")
-model = VGG.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
+model = Lenet.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss=categorical_crossentropy,
               optimizer=opt,

@@ -2,7 +2,7 @@
 # python train_network.py --dataset "C:/Users/chandan/Desktop/Final_year_project/dataset/png" --model sketch_classification.model
 # python train_network.py --dataset "/content/new_final_year_project/dataset/png" --model sketch_classification.model
 # import the necessary packages
-from keras.preprocessing.image import ImageDataGenerator
+#from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from sklearn.cross_validation import train_test_split
 from sklearn.utils import shuffle
@@ -10,7 +10,6 @@ from keras.preprocessing.image import img_to_array
 from keras.utils import np_utils
 from keras.callbacks import EarlyStopping
 from keras.losses import categorical_crossentropy
-from vggnet import VGG
 from lenet import LeNet
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,7 +32,7 @@ args = vars(ap.parse_args())
 ROWS = 128
 COLS = 128
 CHANNELS = 1
-EPOCHS = 30
+EPOCHS = 20
 INIT_LR = 0.0001
 BS = 128
 sketch_data_list = []
@@ -90,9 +89,7 @@ with open('Labels.csv', 'r') as f:
 		labels[start:end] = class_no
 		#print(start,end)
 
-names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
- 'ashtray', 'axe', 'backpack', 'banana', 'barn', 'baseball bat', 'basket', 'bathtub',
- 'bear (animal)', 'bed', 'bee', 'beer-mug', 'bell', 'bench', 'bicycle', 'binoculars', 
+names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair', 'ashtray', 'axe', 'backpack', 'banana', 'barn', 'baseball bat', 'basket', 'bathtub', 'bear (animal)', 'bed', 'bee', 'beer-mug', 'bell', 'bench', 'bicycle', 'binoculars', 
  'blimp', 'book', 'bookshelf', 'boomerang', 'bottle opener', 'bowl', 'brain', 'bread',
  'bridge', 'bulldozer', 'bus', 'bush', 'butterfly']
 
@@ -133,17 +130,10 @@ names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
 Y = np_utils.to_categorical(labels, num_of_classes)
 
 #Shuffle the dataset
-x,y = shuffle(sketch_data,Y, random_state=10)
+x,y = shuffle(sketch_data,Y, random_state=2)
 # Split the dataset
-X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.1)
 
-datagen = ImageDataGenerator(
-    featurewise_center=True,
-    featurewise_std_normalization=True,
-    rotation_range=20,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    horizontal_flip=True)
 
 
 # initialize the model
@@ -157,7 +147,7 @@ model.compile(loss=categorical_crossentropy,
 # train the network
 print("[INFO] training network...")
 #earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
-hist = model.fit_generator(datagen.flow(X_train, Y_train, batch_size=BS), epochs=EPOCHS, verbose=1, validation_data=(X_test, Y_test))
+hist = model.fit(X_train, Y_train, batch_size=BS, epochs=EPOCHS,  verbose=1, validation_data=(X_test, Y_test))
 
 
 # save the model to disk

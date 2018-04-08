@@ -137,29 +137,13 @@ x,y = shuffle(sketch_data,Y, random_state=10)
 # Split the dataset
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
 
-train_datagen = ImageDataGenerator(rotation_range=10,
-                                    width_shift_range=0.05,
-                                    height_shift_range=0.05,
-                                    shear_range=0.05,
-                                    zoom_range=0.05,
-                                    rescale=1/255.,
-                                    fill_mode='nearest',
-                                    channel_shift_range=0.2*255)
-train_generator = train_datagen.flow_from_directory(
-    (X_train, Y_train),
-    target_size=(ROWS, COLS),
-    batch_size=BS,
-    shuffle = True,
-    class_mode='categorical')
-
-validation_datagen = ImageDataGenerator(rescale=1/255.)
-validation_generator = validation_datagen.flow_from_directory(
-    (X_test, Y_test),
-    target_size=(ROWS, COLS),
-    batch_size=BS,
-    shuffle = True,
-    class_mode='categorical')
-
+datagen = ImageDataGenerator(
+    featurewise_center=True,
+    featurewise_std_normalization=True,
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    horizontal_flip=True)
 
 
 # initialize the model
@@ -173,14 +157,8 @@ model.compile(loss=categorical_crossentropy,
 # train the network
 print("[INFO] training network...")
 #earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
-#hist = model.fit_generator(aug.flow(X_train, Y_train, batch_size=BS), epochs=EPOCHS, steps_per_epoch=len(X_train) // BS,  verbose=1, validation_data=(X_test, Y_test))
+hist = model.fit_generator(datagen.flow(X_train, Y_train, batch_size=BS), epochs=EPOCHS, steps_per_epoch=len(X_train) // BS,  verbose=1, validation_data=(X_test, Y_test))
 
-train_history = model.fit_generator(
-                    train_generator,
-                    steps_per_epoch=len(X_train) // BS,
-                    epochs=EPOCHS,
-                    validation_data=validation_generator,
-                    validation_steps=len(X_test) // BS )
 
 # save the model to disk
 print("[INFO] serializing network...")

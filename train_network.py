@@ -33,8 +33,8 @@ ROWS = 128
 COLS = 128
 CHANNELS = 1
 EPOCHS = 25
-INIT_LR = 1e-3
-BS = 64
+INIT_LR = 0.0004
+BS = 32
 sketch_data_list = []
 
 # initialize the data and labels
@@ -132,9 +132,9 @@ names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
 Y = np_utils.to_categorical(labels, num_of_classes)
 
 #Shuffle the dataset
-x,y = shuffle(sketch_data,Y, random_state=2)
+x,y = shuffle(sketch_data,Y, random_state=10)
 # Split the dataset
-X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2)
 
 
 

@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from keras.preprocessing.image import img_to_array
 from keras.utils import np_utils
+from keras.utils import to_categorical
 from keras.losses import categorical_crossentropy
 from lenet import LeNet
 import matplotlib.pyplot as plt

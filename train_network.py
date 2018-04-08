@@ -33,9 +33,9 @@ args = vars(ap.parse_args())
 ROWS = 128
 COLS = 128
 CHANNELS = 1
-EPOCHS = 25
-INIT_LR = 0.0001
-BS = 128
+EPOCHS = 30
+INIT_LR = 0.00005
+BS = 64
 sketch_data_list = []
 
 # initialize the data and labels

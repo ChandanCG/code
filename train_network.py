@@ -2,7 +2,7 @@
 # python train_network.py --dataset "C:/Users/chandan/Desktop/Final_year_project/dataset/png" --model sketch_classification.model
 # python train_network.py --dataset "/content/new_final_year_project/dataset/png" --model sketch_classification.model
 # import the necessary packages
-#from keras.preprocessing.image import ImageDataGenerator
+from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from sklearn.cross_validation import train_test_split
 from sklearn.utils import shuffle
@@ -135,7 +135,11 @@ Y = np_utils.to_categorical(labels, num_of_classes)
 #Shuffle the dataset
 x,y = shuffle(sketch_data,Y, random_state=10)
 # Split the dataset
-X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.05)
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
+
+aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
+	height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
+	horizontal_flip=True, fill_mode="nearest")
 
 
 
@@ -150,7 +154,7 @@ model.compile(loss=categorical_crossentropy,
 # train the network
 print("[INFO] training network...")
 #earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
-hist = model.fit(X_train, Y_train, batch_size=BS, epochs=EPOCHS,  verbose=1, validation_data=(X_test, Y_test))
+hist = model.fit_generator(aug.flow(X_train, Y_train, batch_size=BS), epochs=EPOCHS, steps_per_epoch=len(trainX) // BS,  verbose=1, validation_data=(X_test, Y_test))
 
 
 # save the model to disk

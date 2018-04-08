@@ -148,7 +148,7 @@ datagen = ImageDataGenerator(
 
 # initialize the model
 print("[INFO] compiling model...")
-model = LeNet.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
+model = VGG.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss=categorical_crossentropy,
               optimizer=opt,

@@ -28,12 +28,12 @@ args = vars(ap.parse_args())
 
 # initialize the number of epochs to train for, initia learning rate,
 # and batch size
-ROWS = 128
-COLS = 128
+ROWS = 64
+COLS = 64
 CHANNELS = 1
 EPOCHS = 20
-INIT_LR = 0.0004
-BS = 32
+INIT_LR = 0.004
+BS = 64
 sketch_data_list = []
 
 # initialize the data and labels

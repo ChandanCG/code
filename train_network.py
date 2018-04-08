@@ -32,8 +32,8 @@ args = vars(ap.parse_args())
 ROWS = 128
 COLS = 128
 CHANNELS = 1
-EPOCHS = 20
-INIT_LR = 0.0001
+EPOCHS = 30
+INIT_LR = 0.00005
 BS = 128
 sketch_data_list = []
 
@@ -130,9 +130,9 @@ names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair', 
 Y = np_utils.to_categorical(labels, num_of_classes)
 
 #Shuffle the dataset
-x,y = shuffle(sketch_data,Y, random_state=2)
+x,y = shuffle(sketch_data,Y, random_state=10)
 # Split the dataset
-X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.1)
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
 
 
 

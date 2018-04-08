@@ -9,7 +9,7 @@ from sklearn.utils import shuffle
 from keras.preprocessing.image import img_to_array
 from keras.utils import np_utils
 from keras.losses import categorical_crossentropy
-from vggnet import VGG
+from lenet import LeNet
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
@@ -135,7 +135,7 @@ print(len(Y_test))
 
 # initialize the model
 print("[INFO] compiling model...")
-model = VGG.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
+model = LeNet.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss=categorical_crossentropy,
               optimizer=opt,

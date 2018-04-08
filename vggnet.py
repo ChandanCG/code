@@ -48,7 +48,7 @@ class VGG:
 
         model.add(Flatten())
         model.add(Dense(4096, activation='relu'))
-        model.add(Dropout(0.5))
+        #model.add(Dropout(0.5))
         model.add(Dense(4096, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(classes, activation='softmax'))

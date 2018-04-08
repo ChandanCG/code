@@ -4,7 +4,7 @@
 # import the necessary packages
 #from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from keras.preprocessing.image import img_to_array
 from keras.utils import np_utils
@@ -124,14 +124,19 @@ names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair']
  'wineglass', 'wrist-watch', 'zebra']'''
 
 # convert class labels to on-hot encoding
-Y = np_utils.to_categorical(labels, num_of_classes)
-
+#Y = np_utils.to_categorical(labels, num_of_classes)
+Y = np.array(labels)
 #Shuffle the dataset
-x,y = shuffle(sketch_data,Y, random_state=2)
+#x,y = shuffle(sketch_data,Y, random_state=2)
 # Split the dataset
-X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2)
+X_train, X_test, Y_train, Y_test = train_test_split(sketch_data, labels, test_size=0.15, random_state=42)
 
-print(len(Y_test))
+Y_train = to_categorical(Y_train, num_classes=7)
+Y_test = to_categorical(Y_test, num_classes=7)
+
+aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
+	height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
+	horizontal_flip=True, fill_mode="nearest")
 
 # initialize the model
 print("[INFO] compiling model...")
@@ -143,7 +148,9 @@ model.compile(loss=categorical_crossentropy,
 
 # train the network
 print("[INFO] training network...")
-hist = model.fit(X_train, Y_train, batch_size=BS, epochs=EPOCHS, verbose=1, validation_data=(X_test, Y_test))
+hist = model.fit_generator(aug.flow(X_train, Y_train, batch_size=BS),
+	validation_data=(X_test, Y_test), steps_per_epoch=len(X_train) // BS,
+	epochs=EPOCHS, verbose=1)
 
 
 # save the model to disk

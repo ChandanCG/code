@@ -6,7 +6,6 @@ from keras.preprocessing.image import img_to_array
 from keras.models import load_model
 import numpy as np
 import argparse
-import imutils
 import cv2
 
 # construct the argument parse and parse the arguments
@@ -76,15 +75,5 @@ model = load_model(args["model"])
 index = model.predict_classes(test_image)
 result = names[index[0]]
 prob = model.predict(test_image)[0][index]
-print(result, prob)
-# build the label
-label = "{}: {:.2f}%".format(result, prob[0] * 100)
+print(result)
 
-# draw the label on the image
-output = imutils.resize(orig, width=400)
-cv2.putText(output, label, (150, 300),  cv2.FONT_HERSHEY_SIMPLEX,
-	1.0, (255, 0, 0), 2)
-
-# show the output image
-cv2.imshow("Output", output)
-cv2.waitKey(0)

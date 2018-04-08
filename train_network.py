@@ -33,9 +33,9 @@ args = vars(ap.parse_args())
 ROWS = 128
 COLS = 128
 CHANNELS = 1
-EPOCHS = 30
+EPOCHS = 50
 INIT_LR = 0.0001
-BS = 128
+BS = 32
 sketch_data_list = []
 
 # initialize the data and labels
@@ -148,7 +148,7 @@ datagen = ImageDataGenerator(
 
 # initialize the model
 print("[INFO] compiling model...")
-model = VGG.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
+model = LeNet.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss=categorical_crossentropy,
               optimizer=opt,

@@ -34,7 +34,7 @@ ROWS = 128
 COLS = 128
 CHANNELS = 1
 EPOCHS = 25
-INIT_LR = 0.003
+INIT_LR = 0.0001
 BS = 128
 sketch_data_list = []
 

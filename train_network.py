@@ -32,7 +32,7 @@ args = vars(ap.parse_args())
 ROWS = 128
 COLS = 128
 CHANNELS = 1
-EPOCHS = 20
+EPOCHS = 25
 INIT_LR = 1e-3
 BS = 128
 sketch_data_list = []
@@ -148,8 +148,8 @@ model.compile(loss=categorical_crossentropy,
 
 # train the network
 print("[INFO] training network...")
-earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
-hist = model.fit(X_train, Y_train, batch_size=BS, epochs=EPOCHS, callbacks=[earlyStopping],  verbose=1, validation_data=(X_test, Y_test))
+#earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
+hist = model.fit(X_train, Y_train, batch_size=BS, epochs=EPOCHS,  verbose=1, validation_data=(X_test, Y_test))
 
 
 # save the model to disk

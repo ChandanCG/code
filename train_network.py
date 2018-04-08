@@ -154,7 +154,7 @@ model.compile(loss=categorical_crossentropy,
 # train the network
 print("[INFO] training network...")
 #earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
-hist = model.fit_generator(aug.flow(X_train, Y_train, batch_size=BS), epochs=EPOCHS, steps_per_epoch=len(trainX) // BS,  verbose=1, validation_data=(X_test, Y_test))
+hist = model.fit_generator(aug.flow(X_train, Y_train, batch_size=BS), epochs=EPOCHS, steps_per_epoch=len(X_train) // BS,  verbose=1, validation_data=(X_test, Y_test))
 
 
 # save the model to disk

@@ -1,14 +1,14 @@
 # USAGE
 # python train_network.py --dataset "C:/Users/chandan/Desktop/Final_year_project/dataset/png" --model sketch_classification.model
-
+# python train_network.py --dataset "/content/new_final_year_project/dataset/png" --model sketch_classification.model
 # import the necessary packages
-from keras.preprocessing.image import ImageDataGenerator
+#from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
-from sklearn.model_selection import train_test_split
+from sklearn.cross_validation import train_test_split
 from sklearn.utils import shuffle
 from keras.preprocessing.image import img_to_array
 from keras.utils import np_utils
-from keras.utils import to_categorical
+from keras.callbacks import EarlyStopping
 from keras.losses import categorical_crossentropy
 from lenet import LeNet
 import matplotlib.pyplot as plt
@@ -29,12 +29,12 @@ args = vars(ap.parse_args())
 
 # initialize the number of epochs to train for, initia learning rate,
 # and batch size
-ROWS = 64
-COLS = 64
+ROWS = 128
+COLS = 128
 CHANNELS = 1
 EPOCHS = 20
-INIT_LR = 0.004
-BS = 64
+INIT_LR = 1e-3
+BS = 128
 sketch_data_list = []
 
 # initialize the data and labels
@@ -72,7 +72,6 @@ sketch_data = np.expand_dims(sketch_data, axis = 4)
 '''
 sketch_data_normalized = preprocessing.normalize(sketch_data) #Scale/Normlaize#
 print(sketch_data_normalized.shape)
-
 # dimensional ordering
 sketch_data_normalized = sketch_data_normalized.reshape(sketch_data.shape[0],img_rows, img_cols, num_channel)
 print(sketch_data_normalized.shape)'''
@@ -91,6 +90,7 @@ with open('Labels.csv', 'r') as f:
 		#print(start,end)
 
 names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair']
+
 
 '''names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
  'ashtray', 'axe', 'backpack', 'banana', 'barn', 'baseball bat', 'basket', 'bathtub',
@@ -125,19 +125,14 @@ names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair']
  'wineglass', 'wrist-watch', 'zebra']'''
 
 # convert class labels to on-hot encoding
-#Y = np_utils.to_categorical(labels, num_of_classes)
-Y = np.array(labels)
+Y = np_utils.to_categorical(labels, num_of_classes)
+
 #Shuffle the dataset
-#x,y = shuffle(sketch_data,Y, random_state=2)
+x,y = shuffle(sketch_data,Y, random_state=2)
 # Split the dataset
-X_train, X_test, Y_train, Y_test = train_test_split(sketch_data, labels, test_size=0.15, random_state=42)
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.1)
 
-Y_train = to_categorical(Y_train, num_classes=7)
-Y_test = to_categorical(Y_test, num_classes=7)
 
-aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
-	height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
-	horizontal_flip=True, fill_mode="nearest")
 
 # initialize the model
 print("[INFO] compiling model...")
@@ -149,9 +144,8 @@ model.compile(loss=categorical_crossentropy,
 
 # train the network
 print("[INFO] training network...")
-hist = model.fit_generator(aug.flow(X_train, Y_train, batch_size=BS),
-	validation_data=(X_test, Y_test), steps_per_epoch=len(X_train) // BS,
-	epochs=EPOCHS, verbose=1)
+earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
+hist = model.fit(X_train, Y_train, batch_size=BS, epochs=EPOCHS, callbacks=[earlyStopping],  verbose=1, validation_data=(X_test, Y_test))
 
 
 # save the model to disk

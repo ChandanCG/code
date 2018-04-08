@@ -5,6 +5,7 @@ from keras.optimizers import SGD
 import cv2, numpy as np
 
 class VGG:
+    @staticmethod
     def build(width, height, depth, classes):
         model = Sequential()
         inputShape = (height, width, depth)

@@ -33,7 +33,7 @@ ROWS = 128
 COLS = 128
 CHANNELS = 1
 EPOCHS = 50
-INIT_LR = 0.00005
+INIT_LR = 0.0001
 BS = 128
 sketch_data_list = []
 
@@ -138,7 +138,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
 
 # initialize the model
 print("[INFO] compiling model...")
-model = LeNet.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
+model = VGG.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss=categorical_crossentropy,
               optimizer=opt,

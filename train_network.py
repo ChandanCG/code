@@ -11,6 +11,7 @@ from keras.utils import np_utils
 from keras.callbacks import EarlyStopping
 from keras.losses import categorical_crossentropy
 from lenet import LeNet
+from vggnet import VGG
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse

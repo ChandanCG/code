@@ -131,15 +131,15 @@ names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',
 Y = np_utils.to_categorical(labels, num_of_classes)
 
 #Shuffle the dataset
-x,y = shuffle(sketch_data,Y, random_state=40)
+x,y = shuffle(sketch_data,Y, random_state=42)
 # Split the dataset
-X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.10)
 
 
 
 # initialize the model
 print("[INFO] compiling model...")
-model = VGG.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
+model = LeNet.build(width=ROWS, height=COLS, depth=CHANNELS, classes=num_of_classes)
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss=categorical_crossentropy,
               optimizer=opt,

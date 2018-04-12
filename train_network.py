@@ -78,7 +78,7 @@ sketch_data_normalized = sketch_data_normalized.reshape(sketch_data.shape[0],img
 print(sketch_data_normalized.shape)'''
 
 #define classes 
-num_of_classes = 30
+num_of_classes = 50
 num_of_samples = sketch_data.shape[0]
 labels = np.ones((num_of_samples,), dtype ='int64')
 with open('Labels.csv', 'r') as f:
@@ -91,7 +91,10 @@ with open('Labels.csv', 'r') as f:
 		#print(start,end)
 
 names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair', 'ashtray', 'axe', 'backpack', 'banana', 'barn', 'baseball bat', 'basket', 'bathtub', 'bear (animal)', 'bed', 'bee', 'beer-mug', 'bell', 'bench', 'bicycle', 'binoculars', 
- 'blimp', 'book', 'bookshelf', 'boomerang', 'bottle opener', 'bowl', 'brain']
+ 'blimp', 'book', 'bookshelf', 'boomerang', 'bottle opener', 'bowl', 'brain''bread',
+ 'bridge', 'bulldozer', 'bus', 'bush', 'butterfly', 'cabinet', 'cactus', 'cake', 'calculator',
+ 'camel', 'camera', 'candle', 'cannon', 'canoe', 'car (sedan)', 'carrot', 'castle', 'cat', 
+ 'cell phone']
 
 
 '''names = ['airplane', 'alarm clock', 'angel', 'ant', 'apple', 'arm', 'armchair',

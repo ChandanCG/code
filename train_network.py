@@ -33,8 +33,8 @@ args = vars(ap.parse_args())
 ROWS = 128
 COLS = 128
 CHANNELS = 1
-EPOCHS = 25
-INIT_LR = 0.00001
+EPOCHS = 30
+INIT_LR = 0.0001
 BS = 128
 sketch_data_list = []
 
@@ -137,7 +137,9 @@ x,y = shuffle(sketch_data,Y, random_state=10)
 # Split the dataset
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.15)
 
-
+aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
+	height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
+	horizontal_flip=True, fill_mode="nearest")
 
 # initialize the model
 print("[INFO] compiling model...")
@@ -150,7 +152,7 @@ model.compile(loss=categorical_crossentropy,
 # train the network
 print("[INFO] training network...")
 #earlyStopping=EarlyStopping(monitor='val_loss', patience=0, verbose=0, mode='auto')
-hist = model.fit(X_train, Y_train, batch_size=BS, epochs=EPOCHS,  verbose=1, validation_data=(X_test, Y_test))
+hist = model.fit_generator(aug.flow(X_train, Y_train, batch_size=BS), epochs=EPOCHS,  verbose=1, validation_data=(X_test, Y_test))
 
 
 # save the model to disk

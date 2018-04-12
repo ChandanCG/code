@@ -2,7 +2,7 @@
 # python train_network.py --dataset "C:/Users/chandan/Desktop/Final_year_project/dataset/png" --model sketch_classification.model
 # python train_network.py --dataset "/content/new_final_year_project/dataset/png" --model sketch_classification.model
 # import the necessary packages
-#from keras.preprocessing.image import ImageDataGenerator
+from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from sklearn.cross_validation import train_test_split
 from sklearn.utils import shuffle
